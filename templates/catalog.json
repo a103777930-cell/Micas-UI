@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "templates": [
+    {
+      "id": "micas-excel-template",
+      "name": "Excel Template（首个正式样例）",
+      "category": "spreadsheets",
+      "tags": ["micas", "reference", "purpose-pending"],
+      "version": "1.0.0",
+      "status": "active",
+      "path": "templates/spreadsheets/excel-template/v1.0.0/Excel Template(3).xlsx",
+      "readme": "templates/spreadsheets/excel-template/README.md",
+      "original_filename": "Excel Template(3).xlsx",
+      "source": "用户在“连接仓库”对话中上传的原始附件（conversationId: 6aec69c2-a908-83ee-b668-a0c9803fcc25）",
+      "added_on": "2026-11-05",
+      "size_bytes": 53862,
+      "sha256": "9a6d763fad3c3ed8b63bf9c7379c080f0fe9ebeee8aed8a923e4afd5758be927"
+    }
+  ]
+}
