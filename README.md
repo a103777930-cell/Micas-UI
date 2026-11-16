@@ -41,3 +41,14 @@ CHANGELOG.md
 ## 权利与发布
 
 仓库当前未声明统一许可证；保留原文件中的版权与归属信息。公开发布或对外复用前，由维护者确认相应权利与数据披露范围。
+
+## PPT 自动转换（第一版）
+
+规则式 Python 引擎使用登记的 Micas 官方模板生成可编辑 PPTX：
+
+```bash
+python -m pip install -e .
+micas-ppt input.pptx output.pptx --report output.report.json
+```
+
+支持原生文字、图片、普通形状、表格及常见图表，按内容选择单栏、双栏或图文版式，长正文按段落拆页，输出完整性和基础布局报告。复杂对象默认阻断；生成文件仍需 PowerPoint 视觉复核。安装、Python 接口和详细限制见 [转换引擎说明](docs/ppt-converter.md)。

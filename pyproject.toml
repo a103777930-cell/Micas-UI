@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "micas-ppt"
+version = "0.1.0"
+description = "Editable PowerPoint conversion using the registered Micas template"
+requires-python = ">=3.10"
+dependencies = ["python-pptx>=1.0.2,<2", "lxml>=4.9"]
+
+[project.scripts]
+micas-ppt = "micas_ppt.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["micas_ppt*"]
