@@ -5,7 +5,11 @@
       "id": "micas-excel-template",
       "name": "Excel Template（首个正式样例）",
       "category": "spreadsheets",
-      "tags": ["micas", "reference", "purpose-pending"],
+      "tags": [
+        "micas",
+        "reference",
+        "purpose-pending"
+      ],
       "version": "1.0.0",
       "status": "active",
       "path": "templates/spreadsheets/excel-template/v1.0.0/Excel Template(3).xlsx",
@@ -15,6 +19,25 @@
       "added_on": "2026-11-05",
       "size_bytes": 53862,
       "sha256": "9a6d763fad3c3ed8b63bf9c7379c080f0fe9ebeee8aed8a923e4afd5758be927"
+    },
+    {
+      "id": "micas-official-ppt",
+      "name": "Micas 官方 PowerPoint 模板",
+      "category": "presentations",
+      "tags": [
+        "micas",
+        "official",
+        "powerpoint"
+      ],
+      "version": "1.0.0",
+      "status": "active",
+      "path": "templates/presentations/micas-official-ppt/v1.0.0/PPT_Template_2026.pptx",
+      "readme": "templates/presentations/micas-official-ppt/README.md",
+      "original_filename": "PPT_Template_2026.pptx",
+      "source": "用户在本次收录请求中上传并指定为 Micas 官方模板的原始附件 PPT_Template_2026.pptx",
+      "added_on": "2026-11-16",
+      "size_bytes": 2554068,
+      "sha256": "c0daf054f906364854be080ca15acec0c855dccd3cfe5166a3ac8e04c82e234e"
     }
   ]
 }

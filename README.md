@@ -20,13 +20,15 @@ templates/
       README.md
       v1.0.0/Excel Template(3).xlsx
   documents/                  # Word / 文字文档模板（预留）
-  presentations/              # PowerPoint / 演示模板（预留）
+  presentations/              # PowerPoint / 演示模板
 docs/template-standard.md     # 命名、分类、版本与使用规范
 CONTRIBUTING.md                # 新样例收录与变更流程
 scripts/validate_templates.py # 无第三方依赖的登记与完整性检查
 .github/workflows/validate-templates.yml
 CHANGELOG.md
 ```
+
+官方演示模板：[Micas 官方 PowerPoint 模板 V1.0.0](templates/presentations/micas-official-ppt/README.md)，原始附件完整保留，附版式映射说明。
 
 ## 维护与扩展
 
@@ -39,3 +41,23 @@ CHANGELOG.md
 ## 权利与发布
 
 仓库当前未声明统一许可证；保留原文件中的版权与归属信息。公开发布或对外复用前，由维护者确认相应权利与数据披露范围。
+
+## PPT 自动转换（第一版）
+
+规则式 Python 引擎使用登记的 Micas 官方模板生成可编辑 PPTX：
+
+```bash
+python -m pip install -e .
+micas-ppt input.pptx output.pptx --report output.report.json
+```
+
+支持原生文字、图片、普通形状、表格及常见图表，按内容选择单栏、双栏或图文版式，长正文按段落拆页，输出完整性和基础布局报告。复杂对象默认阻断；生成文件仍需 PowerPoint 视觉复核。安装、Python 接口和详细限制见 [转换引擎说明](docs/ppt-converter.md)。
+
+## 本地桌面应用 V1
+
+Micas Document Converter 使用 Tkinter 提供文件选择/拖入、输出目录、后台转换、结果打开及报告查看。默认安全模式，所有转换在本机完成。Windows 便携应用与 macOS `.app` 由原生 GitHub Actions Runner 使用 PyInstaller 构建，内置官方模板，员工无需安装 Python。
+
+- [员工安装和使用说明](docs/desktop-user-guide.md)
+- [开发、构建与验证](docs/desktop-development.md)
+
+桌面版复用现有 V1 引擎，尚未解决真实复杂样稿的过度拆页及组合图形失真问题，输出必须视觉复核。
