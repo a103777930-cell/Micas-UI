@@ -40,6 +40,6 @@ PyInstaller 不是交叉编译器，必须在目标系统构建：
 
 Windows 产物为包含独立 exe 和资源目录的便携 ZIP；macOS 产物为包含 .app 的 ZIP。二者无需目标用户安装 Python；不是单文件 exe，也不是 MSI/DMG 安装器。输出在 `dist/`，构建中间文件在 `build/`，均被 gitignore 排除。
 
-工作流 `.github/workflows/build-desktop.yml` 在开发分支相关变更 push 或手动触发时，分别使用 `windows-latest`、`macos-14` Runner，执行测试、源码 GUI 冒烟、原生构建和打包后应用冒烟，然后上传 ZIP 为 30 天有效的 Actions artifacts。只上传明确命名的构建 ZIP。产物名标明 OS 和 Runner 架构；macOS 不是 Universal，暂不额外构建另一种架构。
+工作流 `.github/workflows/build-desktop.yml` 在开发分支相关变更 push 或手动触发时，分别使用 `windows-latest`、`macos-latest` Runner，执行测试、源码 GUI 冒烟、原生构建和打包后应用冒烟，然后上传 ZIP 为 30 天有效的 Actions artifacts。只上传明确命名的构建 ZIP。产物名标明 OS 和 Runner 架构；macOS 不是 Universal，暂不额外构建另一种架构。
 
 用户获得的产物应来自所有检查成功的运行，管理员下载后按公司渠道分发。工作流不创建 Release，不发布到 main，也不会包含本地真实测试产物。尚未实现代码签名、公证、自动更新或安装器；签名凭据需要公司维护者另行配置。
