@@ -1,5 +1,7 @@
 # 演示文稿模板
 
-预留给 PowerPoint 等演示模板，目前没有正式样例。
+| 模板 | 版本 | 状态 | 说明 |
+| --- | --- | --- | --- |
+| Micas 官方 PowerPoint 模板 | 1.0.0 | active | [使用说明](micas-official-ppt/README.md) · [版式映射](micas-official-ppt/layout-mapping.md) |
 
-收到实际文件后，按 `<用途>/v<版本>/<原始文件名>` 收录，并补充用途说明和 [登记清单](../catalog.json)。品牌配色、字体和版式规范将在有正式依据后补充。
+原始 PPTX 按字节保留。新增或更新按 `<用途>/v<版本>/<原始文件名>` 收录，并同步 [登记清单](../catalog.json)。

@@ -20,13 +20,15 @@ templates/
       README.md
       v1.0.0/Excel Template(3).xlsx
   documents/                  # Word / 文字文档模板（预留）
-  presentations/              # PowerPoint / 演示模板（预留）
+  presentations/              # PowerPoint / 演示模板
 docs/template-standard.md     # 命名、分类、版本与使用规范
 CONTRIBUTING.md                # 新样例收录与变更流程
 scripts/validate_templates.py # 无第三方依赖的登记与完整性检查
 .github/workflows/validate-templates.yml
 CHANGELOG.md
 ```
+
+官方演示模板：[Micas 官方 PowerPoint 模板 V1.0.0](templates/presentations/micas-official-ppt/README.md)，原始附件完整保留，附版式映射说明。
 
 ## 维护与扩展
 
