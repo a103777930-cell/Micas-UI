@@ -136,7 +136,7 @@ class DesktopApp:
         self.folder_button = ttk.Button(row, text='打开所在文件夹', command=lambda: self.open_path(self.output.parent if self.output else self.report.parent), state='disabled'); self.folder_button.pack(side='left', padx=8)
         self.report_button = ttk.Button(row, text='查看报告与风险', command=self.show_report, state='disabled'); self.report_button.pack(side='left')
         ttk.Label(frame, wraplength=680, text='V1 提示：不支持的复杂对象将阻止转换。成功生成仍需在 PowerPoint 中复核；已有文件不会被覆盖。').pack(anchor='w', pady=(12, 0))
-        if hasattr(self.file_entry, 'drop_target_register'):
+        if root.tk.call('info', 'commands', 'tkdnd::drop_target'):
             from tkinterdnd2 import DND_FILES
             self.file_entry.drop_target_register(DND_FILES)
             self.file_entry.dnd_bind('<<Drop>>', self.drop)
@@ -269,6 +269,9 @@ def create_root():
         return TkinterDnD.Tk()
     except (ImportError, RuntimeError):
         import tkinter as tk
+        # A failed TkDND constructor may already have created a Tk window.
+        if tk._default_root is not None:
+            tk._default_root.destroy()
         return tk.Tk()
 
 
@@ -277,6 +280,8 @@ def smoke_test():
     from pptx import Presentation
     root = create_root(); root.withdraw()
     app = DesktopApp(root)
+    if sys.platform in ('win32', 'darwin') and not root.tk.call('info', 'commands', 'tkdnd::drop_target'):
+        raise RuntimeError('Native desktop bundle is missing drag-and-drop support')
     with TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         prs = Presentation(); slide = prs.slides.add_slide(prs.slide_layouts[1])

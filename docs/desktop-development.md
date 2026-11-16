@@ -43,3 +43,7 @@ Windows 产物为包含独立 exe 和资源目录的便携 ZIP；macOS 产物为
 工作流 `.github/workflows/build-desktop.yml` 在开发分支相关变更 push 或手动触发时，分别使用 `windows-latest`、`macos-latest` Runner，执行测试、源码 GUI 冒烟、原生构建和打包后应用冒烟，然后上传 ZIP 为 30 天有效的 Actions artifacts。只上传明确命名的构建 ZIP。产物名标明 OS 和 Runner 架构；macOS 不是 Universal，暂不额外构建另一种架构。
 
 用户获得的产物应来自所有检查成功的运行，管理员下载后按公司渠道分发。工作流不创建 Release，不发布到 main，也不会包含本地真实测试产物。尚未实现代码签名、公证、自动更新或安装器；签名凭据需要公司维护者另行配置。
+
+### 当前云端验证边界
+
+Linux 云端通过真实桌面会话执行 12 项测试（含 3 项 GUI 测试）及源码 GUI 冒烟测试。额外尝试的 Linux PyInstaller 构建完成，但 frozen 冒烟因环境 Tcl/Tk 9 动态库缺失失败；Linux 不在本版分发范围，不提供该构建为正式产物。Windows/macOS 兼容性以对应原生 Runner 的测试和 frozen 冒烟结果为准，不能用 Linux 测试替代。
