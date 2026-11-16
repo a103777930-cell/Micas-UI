@@ -167,7 +167,7 @@ def convert(source, output, report=None, *, repo_root=None, allow_risk=False):
     source, output = Path(source).resolve(), Path(output).resolve()
     report = Path(report).resolve() if report else output.with_suffix('.report.json')
     root = Path(repo_root).resolve() if repo_root else ROOT
-    entry = next(e for e in json.loads((root/'templates/catalog.json').read_text())['templates'] if e['id'] == 'micas-official-ppt')
+    entry = next(e for e in json.loads((root/'templates/catalog.json').read_text(encoding='utf-8'))['templates'] if e['id'] == 'micas-official-ppt')
     template = root / entry['path']
     mapping = template.parent.parent / 'layout-mapping.md'
     protected = {source, template.resolve(), mapping.resolve(), (root/'templates/catalog.json').resolve()}
@@ -175,7 +175,7 @@ def convert(source, output, report=None, *, repo_root=None, allow_risk=False):
         raise ValueError('Input, template, mapping, catalog, output and report must use distinct paths')
     if sha256(template.read_bytes()).hexdigest() != entry['sha256']:
         raise ValueError('Official template checksum mismatch')
-    if 'L15' not in mapping.read_text() or 'L7' not in mapping.read_text():
+    if 'L15' not in mapping.read_text(encoding='utf-8') or 'L7' not in mapping.read_text(encoding='utf-8'):
         raise ValueError('Unsupported layout mapping')
     original = Presentation(source)
     target = Presentation(template)
@@ -196,7 +196,7 @@ def convert(source, output, report=None, *, repo_root=None, allow_risk=False):
     report.parent.mkdir(parents=True, exist_ok=True)
     if result['warnings'] and not allow_risk:
         result['status'] = 'blocked_unsupported_objects'
-        report.write_text(json.dumps(result, ensure_ascii=False, indent=2))
+        report.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
         raise ValueError(f'Unsupported objects detected; see {report}; use --allow-risk only after reviewing limitations')
     # Remove demonstration slides, retain official master/layout/theme and decorations.
     for sid in list(target.slides._sldIdLst):
@@ -349,9 +349,9 @@ def convert(source, output, report=None, *, repo_root=None, allow_risk=False):
         result['integrity']['changed_binary_payloads'] = changed_payloads
         if missing or missing_objects or changed_payloads or broken_relationships or corrupt_part:
             result['status'] = 'failed_integrity'
-            report.write_text(json.dumps(result, ensure_ascii=False, indent=2))
+            report.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
             raise ValueError('Text integrity check failed; output not published')
         result['status'] = 'completed_with_review_required'
         output.write_bytes(final.read_bytes())
-    report.write_text(json.dumps(result, ensure_ascii=False, indent=2))
+    report.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     return result

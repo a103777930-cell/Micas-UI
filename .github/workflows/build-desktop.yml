@@ -1,0 +1,55 @@
+name: Build desktop apps
+on:
+  push:
+    branches: [add-micas-official-ppt-v1]
+    paths:
+      - 'micas_ppt/**'
+      - 'packaging/**'
+      - 'scripts/build-*'
+      - 'tests/**'
+      - 'templates/**'
+      - 'pyproject.toml'
+      - '.github/workflows/build-desktop.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and test
+        run: |
+          python -m pip install -e ".[desktop,build]"
+          python -m unittest discover -s tests -v
+          python scripts/validate_templates.py
+          python -m micas_ppt.desktop --smoke-test
+      - name: Build Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/build-windows.ps1
+      - name: Build macOS
+        if: runner.os == 'macOS'
+        run: ./scripts/build-macos.sh
+      - name: Smoke test frozen Windows executable
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $p = Start-Process dist/MicasDocumentConverter/MicasDocumentConverter.exe -ArgumentList '--smoke-test' -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Frozen smoke test failed: $($p.ExitCode)" }
+      - name: Smoke test frozen macOS application
+        if: runner.os == 'macOS'
+        run: dist/MicasDocumentConverter.app/Contents/MacOS/MicasDocumentConverter --smoke-test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MicasDocumentConverter-${{ runner.os }}-${{ runner.arch }}
+          path: dist/MicasDocumentConverter-*.zip
+          if-no-files-found: error
+          retention-days: 30

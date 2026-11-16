@@ -52,3 +52,12 @@ micas-ppt input.pptx output.pptx --report output.report.json
 ```
 
 支持原生文字、图片、普通形状、表格及常见图表，按内容选择单栏、双栏或图文版式，长正文按段落拆页，输出完整性和基础布局报告。复杂对象默认阻断；生成文件仍需 PowerPoint 视觉复核。安装、Python 接口和详细限制见 [转换引擎说明](docs/ppt-converter.md)。
+
+## 本地桌面应用 V1
+
+Micas Document Converter 使用 Tkinter 提供文件选择/拖入、输出目录、后台转换、结果打开及报告查看。默认安全模式，所有转换在本机完成。Windows 便携应用与 macOS `.app` 由原生 GitHub Actions Runner 使用 PyInstaller 构建，内置官方模板，员工无需安装 Python。
+
+- [员工安装和使用说明](docs/desktop-user-guide.md)
+- [开发、构建与验证](docs/desktop-development.md)
+
+桌面版复用现有 V1 引擎，尚未解决真实复杂样稿的过度拆页及组合图形失真问题，输出必须视觉复核。

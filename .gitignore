@@ -6,3 +6,5 @@ work/
 .DS_Store
 ~$*
 .~lock.*#
+build/
+dist/
